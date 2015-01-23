@@ -20,13 +20,15 @@ input{
 	border: 4px solid #851414;
 	line-height: 220px;	
 	height: 220px;
+	opacity: 0;
 }
-.right {
+#right {
 	height: 100px;
 	background-color: #1DB315;
 	border: 4px solid #157510;
 	padding-top: 90px;
 	height: 130px;
+	display: none;
 }
 .game {
 	width: 250px;

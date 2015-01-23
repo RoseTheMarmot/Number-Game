@@ -3,6 +3,10 @@ session_start();
 if(empty($_SESSION['number'])){
   $_SESSION['number'] = rand(0, 100);
 }
+$guess = null;
+if(isset($_POST['guess'])){
+  $guess = intval($_POST['guess']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,34 +48,21 @@ if(empty($_SESSION['number'])){
       <p>I am thinking of a number between 1 and 100<br/>Take a guess!</p>
     </div>
     
-    <?php 
-    if(!empty($_POST['guess'])){ ?>
-      <div class="game wrong <?php if(intval($_POST["guess"]) >= $_SESSION['number']){ echo "none"; }?>" id="too-low">Too Low!</div>
-    <?php 
-    } ?> 
+    <div class="game wrong" id="too-low">Too Low!</div>
+    
+    <form method="post" action="index.php" id="guessing-form">
+      <input type="number" name="guess">
+      <input type="submit" value="Submit">
+    </form>
 
-    <?php 
-    if(empty($_POST['guess']) || (intval($_POST["guess"]) != $_SESSION['number'])){ ?>
-      <form method="post" action="index.php">
-        <input type="text" name="guess">
-        <input type="submit" value="Submit">
-      </form> 
-    <?php 
-    } else { ?> 
-      <div class="game right" id="right">
-        <?=$_POST['guess']?> was the number!
-        <form method="post" action="process.php">
-          <input type="submit" value="Play Again">
-        </form>
-      </div>
-    <?php 
-    }?>
+    <div class="game right" id="right">
+      <?=$guess?> was the number!
+      <form method="post" action="process.php">
+        <input type="submit" value="Play Again">
+      </form>
+    </div>
 
-    <?php 
-    if(!empty($_POST['guess'])){ ?>
-      <div class="game wrong <?php if (intval($_POST["guess"]) <= $_SESSION['number']){ echo "none"; }?>" id="too-high">Too High!</div>
-    <?php 
-    } ?> 
+    <div class="game wrong" id="too-high">Too High!</div>
 
   </div>
 
@@ -79,6 +70,26 @@ if(empty($_SESSION['number'])){
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script type="text/javascript" src="scripts/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="scripts/script.js"></script>
+  <script>
+  (function($){
+    var guessingForm = $('#guessing-form');
+    var tooLow = $('#too-low');
+    var tooHigh = $('#too-high');
+    var right = $('#right');
+
+    <?php if($guess){ ?>
+      if(<?=$guess?> > <?=$_SESSION['number']?>){
+        tooHigh.css('opacity', '1.0');
+      }else if(<?=$guess?> < <?=$_SESSION['number']?>){
+        tooLow.css('opacity', '1.0');
+      }else {
+        guessingForm.hide();
+        right.css('display', 'inline-block');
+      }
+    <?php
+    } ?>
+  })(jQuery);
+  </script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
