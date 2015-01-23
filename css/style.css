@@ -1,0 +1,57 @@
+.container {
+	text-align: center;
+	margin: 20px auto;
+}
+.row{
+	margin-top: 40px;
+}
+form {
+	display: inline-block;
+	vertical-align: top;
+	width: 250px;
+}
+input{
+	display: block;
+	margin: 10px auto;
+}
+.wrong {
+	height: 100px;
+	background-color: #D62222;
+	border: 4px solid #851414;
+	line-height: 220px;	
+	height: 220px;
+}
+.right {
+	height: 100px;
+	background-color: #1DB315;
+	border: 4px solid #157510;
+	padding-top: 90px;
+	height: 130px;
+}
+.game {
+	width: 250px;
+	color: #ffffff;
+	font-size: 1.5em;
+	display: inline-block;
+	vertical-align: top;
+}
+	.game form {
+		display: inline-block;
+		height: auto;
+		width: auto;
+	}
+		.game form input {
+			background-color: #ffffff;
+			margin-top: 20px;
+		}
+#too-low {
+}
+#right {
+
+}
+#too-high {
+
+}
+div.none {
+	opacity: 0;
+}
